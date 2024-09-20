@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ messages.cipher_program }}</title>
+    <style>
+        /* styles.css */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212; /* Dark background */
+            margin: 0;
+            padding: 20px;
+            position: relative; /* Position relative for stars */
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff; /* Light text color */
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(30, 30, 30, 0.9); /* Slightly transparent for star visibility */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s; /* Add transition for container */
+        }
+
+        .container:hover {
+            transform: scale(1.02); /* Slightly scale up on hover */
+        }
+
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #444; /* Darker border */
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #333; /* Dark background for inputs */
+            color: #ffffff; /* Light text color for inputs */
+        }
+
+        textarea:focus, input[type="text"]:focus, select:focus {
+            border-color: #5cb85c; /* Change border color on focus */
+            box-shadow: 0 0 5px rgba(92, 184, 92, 0.5); /* Add shadow on focus */
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s; /* Transition for button */
+        }
+
+        button:hover {
+            background-color: #4cae4c; /* Change background color on hover */
+            transform: translateY(-2px); /* Slightly lift the button */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #ffffff; /* Light text color */
+        }
+
+        p {
+            background: #2a2a2a; /* Darker background for results */
+            padding: 10px;
+            border-radius: 4px;
+            color: #ffffff; /* Light text color */
+            transition: background-color 0.3s; /* Transition for paragraph */
+        }
+
+        p:hover {
+            background: #d3d3d3; /* Change background color on hover */
+        }
+
+        .error {
+            color: #ff0000; /* Warna merah untuk pesan kesalahan */
+            margin-bottom: 20px;
+        }
+
+        /* Star Background */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            button {
+                font-size: 14px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            textarea, input[type="text"], select {
+                padding: 10px;
+            }
+        }
+    </style>
+    <script>
+        function changeLanguage(lang) {
+            const form = document.getElementById('cipherForm');
+            const languageSelect = document.getElementById('languageSelect');
+            languageSelect.value = lang;
+            form.submit(); // Submit the form to change the language
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ messages.cipher_program }}</h1>
+        {% if error_message %}
+            <div class="error">{{ error_message }}</div>  <!-- Tampilkan pesan kesalahan jika ada -->
+        {% endif %}
+        <form id="cipherForm" method="post" enctype="multipart/form-data">
+            <textarea name="text" placeholder="{{ messages.enter_text }}" required></textarea>
+            <input type="text" name="key" placeholder="{{ messages.enter_key }}" required>
+            <select name="cipher_type">
+                <option value="Vigenere">Vigenere Cipher</option>
+                <option value="Playfair">Playfair Cipher</option>
+                <option value="Hill">Hill Cipher</option>
+            </select>
+            <select name="mode">
+                <option value="encrypt">Enkripsi</option>
+                <option value="decrypt">Dekripsi</option>
+            </select>
+            <input type="file" name="file" accept=".txt">
+            <button type="submit">{{ messages.process }}</button>
+        </form>
+        <h2>{{ messages.result }}</h2>
+        <p>{{ result }}</p>
+    </div>
+</body>
+</html>
