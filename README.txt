@@ -1,6 +1,6 @@
 # Cara Menjalankan Program
 
-1. Pastikan Anda memiliki Python dan Flask terinstal.
+1. Pastikan telah memiliki Python dan Flask terinstal.
 2. Jalankan perintah berikut untuk menginstal Flask:
    pip install Flask
 3. Jalankan aplikasi dengan perintah:
